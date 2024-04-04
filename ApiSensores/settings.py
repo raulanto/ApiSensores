@@ -47,6 +47,10 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'Plantas.apps.PlantasConfig',
+    'Producto.apps.ProductoConfig',
+    'Equipo.apps.EquipoConfig',
+    'Proceso.apps.ProcesoConfig',
+
 ]
 
 INSTALLED_APPS += LOCAL_APPS + THIRD_PARTY_APPS
