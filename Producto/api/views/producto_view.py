@@ -11,6 +11,8 @@ from rest_framework.generics import CreateAPIView
 from Producto.models import Producto
 
 from ..serializers import (ProductoCreateSerializer,ProductoSerializer,ProductoUpdateSerializer)
+# Cabios de registros impor
+from ApiSensores.registroCambios import registrarCambio
 
 class ProductoViewSet(
     ListModelMixin,
@@ -26,10 +28,24 @@ class ProductoViewSet(
 
     def update(self, request, *args, **kwargs):
         self.serializer_class = ProductoUpdateSerializer
-        return super().update(request, *args, **kwargs)
+        response = super().update(request, *args, **kwargs)
+
+        # Registra el cambio
+        objeto = self.get_object()
+        mensaje = "Producto actualizado"
+        registrarCambio(request, objeto, mensaje)
+
+        return response
 
 
 class ProductoCreateViewSet(CreateAPIView):
     queryset = Producto.objects.all()
     serializer_class = ProductoCreateSerializer
     permission_classes = [AllowAny]
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+
+        # Registra el cambio
+        mensaje = "Producto creado"
+        registrarCambio(self.request, instance, mensaje)

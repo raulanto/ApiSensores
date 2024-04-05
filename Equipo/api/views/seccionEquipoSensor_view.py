@@ -11,7 +11,8 @@ from Equipo.models import SeccionEquipoSensor
 from ..serializers.seccionEquipoSensor_serializer import SeccionEquipoSensorSerializer, \
     SeccionEquipoSensorCreateSerializer, SeccionEquipoSensorUpdateSerializer
 
-
+# Cabios de registros impor
+from ApiSensores.registroCambios import registrarCambio
 class SeccionEquipoSemsorViewSet(
     ListModelMixin,
     RetrieveModelMixin,
@@ -26,10 +27,22 @@ class SeccionEquipoSemsorViewSet(
 
     def update(self, request, *args, **kwargs):
         self.serializer_class = SeccionEquipoSensorUpdateSerializer
-        return super().update(request, *args, **kwargs)
+        response = super().update(request, *args, **kwargs)
+        # Registra el cambio
+        objeto = self.get_object()
+        mensaje = "Seccion Equipo Sensor actualizado"
+        registrarCambio(request, objeto, mensaje)
+
+        return response
 
 
 class SeccionEquipoSensorCreateAPIView(CreateAPIView):
     queryset = SeccionEquipoSensor.objects.all().order_by('id')
     serializer_class = SeccionEquipoSensorCreateSerializer
     permission_classes = [AllowAny]
+    def perform_create(self, serializer):
+        instance = serializer.save()
+
+        # Registra el cambio
+        mensaje = "Seccion equipo Sensor creado"
+        registrarCambio(self.request, instance, mensaje)

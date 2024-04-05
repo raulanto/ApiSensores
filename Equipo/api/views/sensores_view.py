@@ -9,7 +9,8 @@ from rest_framework.mixins import (
 from rest_framework.generics import CreateAPIView
 from Equipo.models import Sensores
 from ..serializers import SensoresSerializer, SensoresCreateSerializer, SensoresUpdateSerializer
-
+# Cabios de registros impor
+from ApiSensores.registroCambios import registrarCambio
 
 class SensoresViewSet(
     ListModelMixin,
@@ -25,10 +26,24 @@ class SensoresViewSet(
 
     def update(self, request, *args, **kwargs):
         self.serializer_class = SensoresUpdateSerializer
-        return super().update(request, *args, **kwargs)
+        response = super().update(request, *args, **kwargs)
+
+        # Registra el cambio
+        objeto = self.get_object()
+        mensaje = "Sensores actualizado"
+        registrarCambio(request, objeto, mensaje)
+
+        return response
 
 
 class SensoresCreateAPIView(CreateAPIView):
     queryset = Sensores.objects.all().order_by('id')
     serializer_class = SensoresCreateSerializer
     permission_classes = [AllowAny]
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+
+        # Registra el cambio
+        mensaje = "Sensores creado"
+        registrarCambio(self.request, instance, mensaje)

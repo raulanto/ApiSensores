@@ -8,44 +8,42 @@ from rest_framework.mixins import (
 )
 from rest_framework.generics import CreateAPIView
 
-from ..serializers import EstadoEtapaSerializer,EstadoEtapaCreateSerializer,EstadoEtapaUpdateSerializer
-
-from Proceso.models import EstadoEtapa
+from Proceso.models import Etapa
+from ..serializers.etapa_serializer import EtapaCreateSerializer, EtapaUpdateSerializer, EtapaSerializer
 # Cabios de registros impor
 from ApiSensores.registroCambios import registrarCambio
 
-class EstadoEtapaViewSet(
+class EtapaViewSet(
     ListModelMixin,
     RetrieveModelMixin,
     DestroyModelMixin,
     UpdateModelMixin,
     GenericViewSet
 ):
-    queryset = EstadoEtapa.objects.all()
+    queryset = Etapa.objects.all()
 
-    serializer_class = EstadoEtapaSerializer
+    serializer_class = EtapaSerializer
     permission_classes = [IsAuthenticated]
 
     def update(self, request, *args, **kwargs):
-        self.serializer_class = EstadoEtapaUpdateSerializer
+        self.serializer_class = EtapaUpdateSerializer
         response = super().update(request, *args, **kwargs)
 
         # Registra el cambio
         objeto = self.get_object()
-        mensaje = "Estado Etapa actualizado"
+        mensaje = "Etapa actualizado"
         registrarCambio(request, objeto, mensaje)
 
         return response
 
-
-class EstadoEtapaProductoCreateViewSet(CreateAPIView):
-    queryset = EstadoEtapa.objects.all()
-    serializer_class = EstadoEtapaCreateSerializer
+class EtapaCreateViewSet(CreateAPIView):
+    queryset = Etapa.objects.all()
+    serializer_class = EtapaCreateSerializer
     permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
         instance = serializer.save()
 
         # Registra el cambio
-        mensaje = "Estado Etapa creado"
+        mensaje = "Etapa creado"
         registrarCambio(self.request, instance, mensaje)

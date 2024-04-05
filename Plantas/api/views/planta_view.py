@@ -10,6 +10,8 @@ from rest_framework.generics import CreateAPIView
 
 from Plantas.api.serializers import PlantaSerializer,PlantaCreateSerializer,PlantaUpdateSerializer
 from Plantas.models import *
+# Cabios de registros impor
+from ApiSensores.registroCambios import registrarCambio
 
 class PlantaViewSet(
     ListModelMixin,
@@ -25,10 +27,22 @@ class PlantaViewSet(
 
     def update(self, request, *args, **kwargs):
         self.serializer_class = PlantaUpdateSerializer
-        return super().update(request, *args, **kwargs)
+        response = super().update(request, *args, **kwargs)
+        # Registra el cambio
+        objeto = self.get_object()
+        mensaje = "Planta actualizado"
+        registrarCambio(request, objeto, mensaje)
+
+        return response
 
 
 class PlantaCreateAPIView(CreateAPIView):
     queryset = Planta.objects.all().order_by('id')
     serializer_class = PlantaCreateSerializer
     permission_classes = [AllowAny]
+    def perform_create(self, serializer):
+        instance = serializer.save()
+
+        # Registra el cambio
+        mensaje = "PLanta creado"
+        registrarCambio(self.request, instance, mensaje)

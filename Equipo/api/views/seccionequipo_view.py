@@ -10,6 +10,10 @@ from rest_framework.generics import CreateAPIView
 from Equipo.models import SeccionEquipo
 from ..serializers.seccionEquipo_serializer import SeccionEquipoSerializer,SeccionEquipoCreateSerializer,SeccionEquipoUpdateSerializer
 
+from ApiSensores.registroCambios import registrarCambio
+
+
+
 class SeccionEquipoViewSet(
     ListModelMixin,
     RetrieveModelMixin,
@@ -24,10 +28,25 @@ class SeccionEquipoViewSet(
 
     def update(self, request, *args, **kwargs):
         self.serializer_class = SeccionEquipoUpdateSerializer
-        return super().update(request, *args, **kwargs)
+        response= super().update(request, *args, **kwargs)
+
+        # Registra el cambio
+        objeto = self.get_object()
+        mensaje = "Seccion Equipo actualizado"
+        registrarCambio(request, objeto, mensaje)
+
+        return response
+
 
 
 class SeccionEquipoCreateAPIView(CreateAPIView):
     queryset = SeccionEquipo.objects.all().order_by('id')
     serializer_class = SeccionEquipoCreateSerializer
     permission_classes = [AllowAny]
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+
+        # Registra el cambio
+        mensaje = "Seccion Equipo creado"
+        registrarCambio(self.request, instance, mensaje)
