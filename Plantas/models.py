@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from simple_history.models import HistoricalRecords
+
 
 # Control de cambios de los modelos
 class TimeStampedModel(models.Model):
@@ -13,6 +15,7 @@ class TimeStampedModel(models.Model):
 class Estado(TimeStampedModel):
     nombre = models.CharField(max_length=100)
 
+    history = HistoricalRecords()
     def __str__(self):
        return self.nombre
 
@@ -22,6 +25,7 @@ class Municipio(TimeStampedModel):
     nombre = models.CharField(max_length=100)
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
 
+    history = HistoricalRecords()
     def __str__(self):
         return self.nombre
 
@@ -35,5 +39,6 @@ class Planta(TimeStampedModel):
 
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
+    history = HistoricalRecords()
     def __str__(self):
         return self.nombre
