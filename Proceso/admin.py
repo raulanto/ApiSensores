@@ -17,7 +17,7 @@ class EtapaAdmin(admin.ModelAdmin):
 @admin.register(LecturaEtapa)
 class LecturaEtapaAdmin(admin.ModelAdmin):
     list_display = ['id','valor','fkEtapa','fkESeccionEquipoSensor']
-
+    list_filter = ['fkESeccionEquipoSensor']
 
 
 

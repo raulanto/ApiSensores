@@ -3,16 +3,19 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import (
     ListModelMixin,
     RetrieveModelMixin,
-    UpdateModelMixin,
     DestroyModelMixin
 )
+
+
 from rest_framework.generics import CreateAPIView
 from ..serializers.lecturaEtapa_serializer import LecturaEtapaSerializer,LecturaEtapaCreateSerializer
 from Proceso.models import LecturaEtapa
 # Cabios de registros impor
 from ApiSensores.registroCambios import registrarCambio
 
-
+# filtros
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 class LecturaEtapaViewSet(
     ListModelMixin,
     RetrieveModelMixin,
@@ -23,8 +26,9 @@ class LecturaEtapaViewSet(
 
     serializer_class =LecturaEtapaSerializer
     permission_classes = [IsAuthenticated]
-
-
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+    filterset_fields = ['fkESeccionEquipoSensor','valor']
+    search_fields = ['valor']
 
 class LecturaEtapaCreateViewSet(CreateAPIView):
     queryset = LecturaEtapa.objects.all()
