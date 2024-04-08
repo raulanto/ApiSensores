@@ -8,9 +8,9 @@ from Equipo.models import SeccionEquipoSensor
 
 # Create your models here.
 class TimeStampedModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    createdTime_at=models.TimeField(auto_now_add=True)
     class Meta:
         abstract = True
 
