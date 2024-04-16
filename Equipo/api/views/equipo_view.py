@@ -13,7 +13,8 @@ from Equipo.models import Equipo
 
 # Cabios de registros impor
 from ApiSensores.registroCambios import registrarCambio
-
+# filtros
+from rest_framework import filters
 
 class EquipoViewSet(
     ListModelMixin,
@@ -26,6 +27,10 @@ class EquipoViewSet(
 
     serializer_class = EquipoSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = [filters.SearchFilter]
+    filterset_fields = ['nombre']
+    search_fields = ['nombre']
+
 
     def update(self, request, *args, **kwargs):
         self.serializer_class = EquipoUpdateSerializer

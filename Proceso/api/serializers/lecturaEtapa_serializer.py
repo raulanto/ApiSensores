@@ -3,25 +3,24 @@ from Proceso.models import LecturaEtapa
 
 
 
-
-
-
-# class LecturaEtapa(TimeStampedModel):
-#     valor = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True,
-#                                 verbose_name="Valor")
-#     fkEtapa = models.ForeignKey(Etapa, on_delete=models.CASCADE, blank=True, null=True)
-#     fkESeccionEquipoSensor = models.ForeignKey(SeccionEquipoSensor, on_delete=models.CASCADE, blank=True, null=True)
-#
-#     history = HistoricalRecords()
-#
-#     def __str__(self):
-#         return self.fkESeccionEquipoSensor.fkseccionEquipo.nombre
+MONTH_NAMES = [
+    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+]
 
 class LecturaEtapaSerializer(serializers.ModelSerializer):
-    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+    created_at = serializers.SerializerMethodField()
+    createdTime_at = serializers.TimeField(format='%H:%M:%S')
+
     class Meta:
         model = LecturaEtapa
-        fields=['id','valor','fkEtapa','fkESeccionEquipoSensor','created_at']
+        fields = ['id', 'valor', 'fkEtapa', 'fkESeccionEquipoSensor', 'created_at', 'createdTime_at']
+
+
+    # Funcion que devuelve el mes en que se creo la lectura
+    def get_created_at(self, obj):
+        return MONTH_NAMES[obj.created_at.month - 1]
+
 
 
 class LecturaEtapaCreateSerializer(serializers.ModelSerializer):

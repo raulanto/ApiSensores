@@ -52,6 +52,7 @@ LOCAL_APPS = [
     'Producto.apps.ProductoConfig',
     'Equipo.apps.EquipoConfig',
     'Proceso.apps.ProcesoConfig',
+    'Organizacion.apps.OrganizacionConfig'
 
 ]
 
