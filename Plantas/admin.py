@@ -4,6 +4,7 @@ from .models import Planta, Municipio, Estado
 admin.site.register(Estado)
 
 
+
 @admin.register(Planta)
 class PlantasAdmin(admin.ModelAdmin):
     list_display = ['id', 'nombre', 'usuario', 'municipio','organizacion']
@@ -12,7 +13,7 @@ class PlantasAdmin(admin.ModelAdmin):
     list_per_page = 10
 
     # excluir los datos a modificar
-    # exclude = ['usuario']
+    exclude = ['usuario']
 
 @admin.register(Municipio)
 class EstadoAdmin(admin.ModelAdmin):

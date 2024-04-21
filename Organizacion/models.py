@@ -14,6 +14,8 @@ class Organizacion(TimeStampedModel):
     nombre = models.CharField(max_length=45,default='Organizacion')
     fkUsuario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     descripcion = models.TextField(max_length=250,default='Empresa de Acuicultura ')
+    matricula=models.TextField(max_length=8,default='afw3fdfs')
+
     history = HistoricalRecords()
 
     def __str__(self):
