@@ -12,6 +12,8 @@ from Plantas.api.serializers import PlantaSerializer,PlantaCreateSerializer,Plan
 from Plantas.models import *
 # Cabios de registros impor
 from ApiSensores.registroCambios import registrarCambio
+# filtros
+from rest_framework import filters
 
 class PlantaViewSet(
     ListModelMixin,
@@ -24,6 +26,8 @@ class PlantaViewSet(
 
     serializer_class = PlantaSerializer
     permission_classes = [IsAuthenticated]
+    filterset_fields = ['usuario']
+    filter_backends = [filters.SearchFilter]
 
     def update(self, request, *args, **kwargs):
         self.serializer_class = PlantaUpdateSerializer
