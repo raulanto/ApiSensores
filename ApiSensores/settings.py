@@ -99,11 +99,14 @@ WSGI_APPLICATION = 'ApiSensores.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'apisensores',
+        'USER': 'web',
+        'PASSWORD': 'Admin0123',
+        'HOST': '20.115.87.186',  # Si tu MySQL está en un servidor diferente, cambia esto.
+        'PORT': '3306',  # Puerto predeterminado de MySQL.
     }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
