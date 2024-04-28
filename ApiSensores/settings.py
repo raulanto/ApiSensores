@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+
     'coreapi',
     'rest_framework',
     'rest_framework.authtoken',
@@ -99,13 +100,17 @@ WSGI_APPLICATION = 'ApiSensores.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'apisensores',
-        'USER': 'web',
-        'PASSWORD': 'Admin0123',
-        'HOST': '20.115.87.186',  # Si tu MySQL está en un servidor diferente, cambia esto.
-        'PORT': '3306',  # Puerto predeterminado de MySQL.
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'apisensores',
+    #     'USER': 'web',
+    #     'PASSWORD': 'Admin0123',
+    #     'HOST': '20.115.87.186',  # Si tu MySQL está en un servidor diferente, cambia esto.
+    #     'PORT': '3306',  # Puerto predeterminado de MySQL.
+    # }
 }
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -141,6 +146,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -162,43 +168,36 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
 }
 
+STATICFILES_DIRS=[os.path.join(BASE_DIR, 'static')]
+
+
+
+
 JAZZMIN_SETTINGS = {
+
     # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "Panel Admin",
-
+    "site_title": "Sistema Administrador",
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Panel",
-
+    "site_header": "Sistema",
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
     "site_brand": "Panel",
-
-
-
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
-    "login_logo": None,
-
+    "login_logo": "img/logo.png",
     # Logo to use for login form in dark themes (defaults to login_logo)
-    "login_logo_dark": None,
-
+    "login_logo_dark": "img/logo.png",
     # CSS classes that are applied to the logo above
-    "site_logo_classes": "img-circle",
-
+    "site_logo_classes": "img/logo.png",
     # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
-    "site_icon": None,
-
+    "site_icon": "img/logo.png",
     # Welcome text on the login screen
     "welcome_sign": "Bienvenido al Panel Administrativo",
-
     # Copyright on the footer
     "copyright": "Api Sensores",
-
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string
     "search_model": [],
-
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
-    "user_avatar": None,
-
+    "user_avatar": "img/logo.png",
     ############
     # Top Menu #
     ############
@@ -216,7 +215,7 @@ JAZZMIN_SETTINGS = {
         {"model": "auth.User"},
 
         # App with dropdown menu to all its models pages (Permissions checked against models)
-        {"app": "books"},
+        {"app": "ApiSensores"},
     ],
 
     #############
@@ -246,7 +245,7 @@ JAZZMIN_SETTINGS = {
     "hide_models": [],
 
     # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
-    "order_with_respect_to": ["auth", "books", "books.author", "books.book"],
+    "order_with_respect_to": ["auth"],
 
     # Custom links to append to app groups, keyed on app name
     "custom_links": {
@@ -264,8 +263,10 @@ JAZZMIN_SETTINGS = {
         "auth": "fas fa-users-cog",
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
+        # Panta
         "Plantas.planta":"fas fa-solid fa-list",
-        'Equipo.sensores':"fas fa-brands fa-squarespace",
+        # Equipo
+        'Equipo.sensores':"fas fa-solid fa-satellite-dish",
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",

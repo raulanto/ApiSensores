@@ -12,8 +12,8 @@ class PlantasAdmin(admin.ModelAdmin):
     list_filter = ['organizacion']
     list_per_page = 10
 
-    # excluir los datos a modificar
-    exclude = ['usuario']
+    # # excluir los datos a modificar
+    # exclude = ['usuario']
 
 @admin.register(Municipio)
 class EstadoAdmin(admin.ModelAdmin):

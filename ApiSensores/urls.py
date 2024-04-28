@@ -7,11 +7,13 @@ APi Sensores
 
 
 from django.contrib import admin
+from django.shortcuts import redirect
 from django.urls import path,include
 from .CustomAuthToken import CustomAuthTokenAPI
 
 
 urlpatterns = [
+    path('', lambda request: redirect('admin/', permanent=False)),  # Redirige la raíz al admin
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api-token-auth/', CustomAuthTokenAPI.as_view()),
