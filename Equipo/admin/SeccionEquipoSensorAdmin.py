@@ -1,9 +1,11 @@
+from Equipo.actions import exportSeccionequipoSensor_csv
 from Equipo.models import SeccionEquipoSensor
 from django.contrib import admin
 
 @admin.register(SeccionEquipoSensor)
 class SeccionEquipoSensorAdmin(admin.ModelAdmin):
     list_display = ['id', 'seccion_equipo_nombre', 'sensor_nombre','nombre_equipo']
+    actions = [exportSeccionequipoSensor_csv]
     # Relacion de varios niveles
     # list_filter = ['fkseccionEquipo__fkequipo']
 
@@ -13,7 +15,9 @@ class SeccionEquipoSensorAdmin(admin.ModelAdmin):
     seccion_equipo_nombre.short_description = 'Sección del Equipo'
 
     def sensor_nombre(self, obj):
-        return obj.fksensor.nombre
+        if obj.fksensor is not None:
+            return obj.fksensor.nombre
+        return None
 
     sensor_nombre.short_description = 'Sensor'
 

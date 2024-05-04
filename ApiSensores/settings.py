@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # templete de jaaxmin
+    # tamplates de jaaxmin
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -60,6 +60,10 @@ LOCAL_APPS = [
 
 ]
 
+# defino la url para que mande al admin
+LOGIN_REDIRECT_URL = '/admin/'
+
+
 INSTALLED_APPS += THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
@@ -79,7 +83,7 @@ ROOT_URLCONF = 'ApiSensores.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': []
+        'DIRS': [BASE_DIR / 'templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -170,7 +174,7 @@ REST_FRAMEWORK = {
 
 STATICFILES_DIRS=[os.path.join(BASE_DIR, 'static')]
 
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 JAZZMIN_SETTINGS = {

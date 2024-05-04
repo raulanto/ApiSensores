@@ -8,9 +8,9 @@ from Producto.models import Producto
 class Equipo(TimeStampedModel):
     nombre = models.CharField(max_length=50)
     descripcion = models.TextField(blank=True, null=True)
-    fkplanta = models.ForeignKey(Planta, related_name='equipos', on_delete=models.CASCADE, blank=True, null=True)
-    fkproducto = models.ForeignKey(Producto, related_name='equipos', on_delete=models.CASCADE, blank=True, null=True)
-    usuario = models.ForeignKey(User,related_name='usuario', on_delete=models.CASCADE, blank=True, null=True)
+    fkplanta = models.ForeignKey(Planta, related_name='equipos', on_delete=models.CASCADE, blank=True, null=True,verbose_name='Planta')
+    fkproducto = models.ForeignKey(Producto, related_name='equipos', on_delete=models.CASCADE, blank=True, null=True,verbose_name='Producto')
+    usuario = models.ForeignKey(User,related_name='usuarioEq', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.nombre

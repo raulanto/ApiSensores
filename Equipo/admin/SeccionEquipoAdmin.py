@@ -1,12 +1,17 @@
-from Equipo.actions.actionsEquipo import export_csv
+from Equipo.actions.actionsSeccionEquipo import exportSeccionEquipo_csv
 from Equipo.models import SeccionEquipo
 from django.contrib import admin
 
 @admin.register(SeccionEquipo)
 class SeccionEquipoAdmin(admin.ModelAdmin):
-    list_display = ['id','nombre','fkequipo','usuario']
+    list_display = ['id','nombre','nombre_equipo','usuario']
     list_filter = ['fkequipo']
-    actions = [export_csv]
+    actions = [exportSeccionEquipo_csv]
+
+    def nombre_equipo(self, obj):
+        return obj.fkequipo.nombre
+
+    nombre_equipo.short_description = 'Equipo'
     def get_queryset(self, request):
         # Obtener el queryset base
         queryset = super().get_queryset(request)

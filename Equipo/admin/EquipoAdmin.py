@@ -1,16 +1,31 @@
-
+from Equipo.actions.actionsEquipo import exportequipo_csv
 from Equipo.models import Equipo
 
 from django.contrib import admin
 
 
-
 @admin.register(Equipo)
 class EquipoAdmin(admin.ModelAdmin):
-    list_display = ['id', 'nombre', 'fkplanta', 'usuario']
+    # Vista tabla
+    list_display = ['id', 'nombre', 'nombre_planta', 'usuario', 'fkproducto']
     list_display_links = ['id', 'nombre']
-    list_filter = ['fkplanta']
+    # list_filter = ['fkplanta']
     list_per_page = 10
+    actions = [exportequipo_csv]
+    # VistaRegistro
+    fieldsets = (
+        ('Datos Equipo', {
+            'fields': ('nombre', 'descripcion', 'fkplanta', 'usuario')
+        }),
+        ('Producto', {
+            'fields': ('fkproducto',)
+        }),
+    )
+
+    def nombre_planta(self, obj):
+        return obj.fkplanta.nombre
+
+    nombre_planta.short_description = 'Planta'
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)

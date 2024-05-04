@@ -9,7 +9,7 @@ from rest_framework.mixins import (
 
 from rest_framework.generics import CreateAPIView
 from ..serializers.lecturaEtapa_serializer import LecturaEtapaSerializer,LecturaEtapaCreateSerializer
-from Proceso.models import LecturaEtapa
+from Proceso.models.LecturaEtapa import LecturaEtapa
 # Cabios de registros impor
 from ApiSensores.registroCambios import registrarCambio
 
