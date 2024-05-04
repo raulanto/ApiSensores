@@ -33,7 +33,7 @@ class AdminOrganizacion(admin.ModelAdmin):
         if obj.logo:
             return format_html('<img src="{}" style="max-height: 100px; max-width: 100px;" />', obj.logo.url)
         else:
-            return 'Sin imagen'
+            return 'Sin Logo'
 
     display_logo.allow_tags = True
     display_logo.short_description = 'Logo'
