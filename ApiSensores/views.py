@@ -1,5 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import get_object_or_404, redirect
+
+
 
 def registro_usuario(request):
     if request.method == 'POST':
@@ -10,3 +13,5 @@ def registro_usuario(request):
     else:
         form = UserCreationForm()
     return render(request, 'registro.html', {'form': form})
+
+

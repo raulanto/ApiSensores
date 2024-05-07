@@ -1,46 +1,76 @@
 from django.contrib import admin
-from ..models import Planta, Municipio, Estado
+from ..models import Planta
+from Organizacion.models.Organizacion import Organizacion
+from Organizacion.filters.OrganizacionFilter import OrganizacionFilter
 
 
 @admin.register(Planta)
 class PlantasAdmin(admin.ModelAdmin):
-    list_display = ['id', 'nombre', 'usuario', 'municipio', 'organizacion']
-    list_display_links = ['id', 'nombre']
-    list_filter = ['organizacion']
+    list_display = ['id', 'nombre', 'municipio', 'organizacion','usuario']
+    list_display_links = ['id']
     list_per_page = 10
-
-    # # excluir los datos a modificar
-    # exclude = ['usuario']
+    list_filter = [OrganizacionFilter]
 
     # VistaRegistro
     fieldsets = (
         ('Datos Planta', {
-            'fields': ('nombre', 'descripcion','usuario','organizacion')
+            'fields': ('nombre', 'descripcion','organizacion','usuario')
         }),
         ('Ubicacion', {
             'fields': ('calle', 'codigo_postal', 'municipio')
         }),
     )
 
+    # Devolver solo los queryset del usuario
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         if request.user.is_superuser:
-            # Si el usuario es superadmin, mostrar todas las plantas
+
             return queryset
         else:
-            # Filtrar las plantas por el usuario actual
+
             return queryset.filter(usuario=request.user)
 
     def save_model(self, request, obj, form, change):
-        # Asignar el usuario actual como creador de la planta al guardarla
-        if not change:  # Solo si es un nuevo objeto
+        """
+        Asigna el usuario actual como el usuario de la planta
+        """
+        if not obj.usuario_id:  # Si el usuario no ha sido asignado
             obj.usuario = request.user
         super().save_model(request, obj, form, change)
 
-    def get_exclude(self, request, obj=None):
-        # Si el usuario es superadmin, no se excluye el campo de usuario
-        if request.user.is_superuser:
-            return []
-        else:
-            # Si no es superadmin, se excluye el campo de usuario para evitar modificaciones
-            return ['usuario']
+    def formfield_for_foreignkey_usuario(self, db_field, request, **kwargs):
+        """
+        Personaliza el campo ForeignKey 'usuario' en el formulario de administración.
+        """
+        if db_field.name == "usuario":
+            if request.user.is_superuser:
+                # Permitir la modificación del campo para superusuarios
+                return super().formfield_for_foreignkey(db_field, request, **kwargs)
+            else:
+                # Establecer el usuario actual como valor inicial y deshabilitar el campo para otros usuarios
+                kwargs["initial"] = request.user.id
+                kwargs["disabled"] = True
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def formfield_for_foreignkey_organizacion(self, db_field, request, **kwargs):
+        """
+        Personaliza el campo ForeignKey 'organizacion' en el formulario de administración.
+        Filtra las organizaciones para mostrar solo las creadas por el usuario actual.
+        """
+        if db_field.name == "organizacion":
+            # Filtrar las organizaciones para mostrar solo las creadas por el usuario actual
+            kwargs["queryset"] = Organizacion.objects.filter(fkUsuario=request.user)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        """
+        Personaliza los campos ForeignKey en el formulario de administración.
+        """
+        if db_field.name == "usuario":
+            return self.formfield_for_foreignkey_usuario(db_field, request, **kwargs)
+        elif db_field.name == "organizacion":
+            return self.formfield_for_foreignkey_organizacion(db_field, request, **kwargs)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+
