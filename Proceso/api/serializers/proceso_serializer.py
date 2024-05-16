@@ -3,7 +3,7 @@ from Proceso.models import Proceso
 class ProcesoSerializer(serializers.ModelSerializer):
     class Meta:
         model=Proceso
-        fields = ['id','nombre','descripcion','usuario','equipo']
+        fields = ['id','nombre','descripcion','usuario','fkequipo']
 
       # Te odia maldita perralll
 
@@ -11,7 +11,7 @@ class ProcesoSerializer(serializers.ModelSerializer):
 class ProcesoCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model=Proceso
-        fields = ['nombre','descripcion','usuario','equipo']
+        fields = ['nombre','descripcion','usuario','fkequipo']
 
 
 class ProcesoUpdateSerializer(serializers.ModelSerializer):

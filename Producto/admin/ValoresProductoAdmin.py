@@ -1,10 +1,12 @@
 from django.contrib import admin
 
+from import_export.admin import ImportExportModelAdmin
 from Producto.models.ValoresProducto import ValoresProducto
 from ..models.Producto import Producto
 from ..filter.ProductoFilter import ProductoFilter
 @admin.register(ValoresProducto)
-class ModelNameAdmin(admin.ModelAdmin):
+class ModelNameAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+    resource_classes = [ValoresProducto]
     list_display = ['id','nombre','valorMaximo','valorMinimo','producto']
     list_filter = [ProductoFilter]
     # Vista registro
