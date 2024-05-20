@@ -58,7 +58,6 @@ LOCAL_APPS = [
     'Equipo.apps.EquipoConfig',
     'Proceso.apps.ProcesoConfig',
     'Organizacion.apps.OrganizacionConfig'
-
 ]
 
 # defino la url para que mande al admin
@@ -155,7 +154,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173"
+    "http://localhost:5173",
+    "http://localhost:5174"
 ]
 
 REST_FRAMEWORK = {
