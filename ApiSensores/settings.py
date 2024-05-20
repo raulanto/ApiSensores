@@ -179,15 +179,15 @@ JAZZMIN_UI_TWEAKS = {
     "footer_small_text": False,
     "body_small_text": False,
     "brand_small_text": False,
-    "brand_colour": False,
-    "accent": "accent-primary",
+    "brand_colour": "navbar-orange",
+    "accent": "accent-orange",
     "navbar": "navbar-white navbar-light",
     "no_navbar_border": True,
     "navbar_fixed": True,
     "layout_boxed": False,
     "footer_fixed": True,
     "sidebar_fixed": True,
-    "sidebar": "sidebar-dark-primary",
+    "sidebar": "sidebar-dark-orange",
     "sidebar_nav_small_text": False,
     "sidebar_disable_expand": True,
     "sidebar_nav_child_indent": True,
@@ -199,10 +199,10 @@ JAZZMIN_UI_TWEAKS = {
     "button_classes": {
         "primary": "btn-outline-primary",
         "secondary": "btn-outline-secondary",
-        "info": "btn-info",
-        "warning": "btn-warning",
-        "danger": "btn-danger",
-        "success": "btn-success"
+        "info": "btn-outline-info",
+        "warning": "btn-outline-warning",
+        "danger": "btn-outline-danger",
+        "success": "btn-outline-success"
     },
     "actions_sticky_top": True
 }

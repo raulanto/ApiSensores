@@ -31,7 +31,10 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+
+
                   path('', lambda request: redirect('admin/', permanent=False)),  # Redirige la raíz al admin
+                  # path(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
                   path('admin/', admin.site.urls),
                   path('api-auth/', include('rest_framework.urls')),
                   path('api-token-auth/', CustomAuthTokenAPI.as_view()),
