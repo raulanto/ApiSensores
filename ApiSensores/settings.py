@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # tamplates de jaaxmin
+    # 'django.contrib.staticfiles',  # required for serving swagger ui's css/js files
+    'drf_yasg',
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,14 +42,13 @@ INSTALLED_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-
+    'import_export',
     'coreapi',
     'rest_framework',
     'rest_framework.authtoken',
     'simple_history',
     'django_filters',
     'corsheaders',
-
 
 ]
 
@@ -57,12 +58,10 @@ LOCAL_APPS = [
     'Equipo.apps.EquipoConfig',
     'Proceso.apps.ProcesoConfig',
     'Organizacion.apps.OrganizacionConfig'
-
 ]
 
 # defino la url para que mande al admin
 LOGIN_REDIRECT_URL = '/admin/'
-
 
 INSTALLED_APPS += THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -150,15 +149,14 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173"
+    "http://localhost:5173",
+    "http://localhost:5174"
 ]
-
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -172,7 +170,7 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
 }
 
-STATICFILES_DIRS=[os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -241,7 +239,7 @@ JAZZMIN_SETTINGS = {
     "topmenu_links": [
 
         # Url that gets reversed (Permissions can be added)
-        {"name": "Inicio",  "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Inicio", "url": "admin:index", "permissions": ["auth.view_user"]},
 
         # # external url that opens in a new window (Permissions can be added)
         # {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
@@ -259,7 +257,7 @@ JAZZMIN_SETTINGS = {
 
     # Additional links to include in the user menu on the top right ("app" url type is not allowed)
     "usermenu_links": [
-        #{"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
+        # {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
         {"model": "auth.user"}
     ],
 
@@ -299,9 +297,9 @@ JAZZMIN_SETTINGS = {
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
         # Panta
-        "Plantas.planta":"fas fa-solid fa-list",
+        "Plantas.planta": "fas fa-solid fa-list",
         # Equipo
-        'Equipo.sensores':"fas fa-solid fa-satellite-dish",
+        'Equipo.sensores': "fas fa-solid fa-satellite-dish",
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",

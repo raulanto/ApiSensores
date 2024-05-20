@@ -28,4 +28,4 @@ class SeccionEquipoFilter(admin.SimpleListFilter):
         if self.value() is None:
             return queryset
 
-        return queryset.filter(fkequipo_id=self.value())
+        return queryset.filter(fkseccionEquipo_id=self.value())
