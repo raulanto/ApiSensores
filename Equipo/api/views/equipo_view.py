@@ -37,7 +37,7 @@ class EquipoViewSet(
         response =super().update(request, *args, **kwargs)
         # Registra el cambio
         objeto = self.get_object()
-        mensaje = "equipo Actulizado actualizado"
+        mensaje = "equipo  actualizado"
         registrarCambio(request, objeto, mensaje)
 
         return response

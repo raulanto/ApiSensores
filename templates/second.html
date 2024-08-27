@@ -1,0 +1,10 @@
+{% extends 'index.html' %}
+
+{% block content %}
+	<ul>
+    {% for foo in seccionEquipo %}
+    	<li>{{ foo.nombre }}</li>
+    {% endfor %}
+
+    </ul>
+{% endblock %}

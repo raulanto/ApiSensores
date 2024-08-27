@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% block content %}
+    <ul>
+        {% for foo in categoria %}
+            <li>
+                {{ foo.fkplanta }}
+            </li>
+        {% endfor %}
+
+    </ul>
+
+{% endblock %}
+
+
+
+<h1>
+    {{ name }}
+</h1>
+</body>
+</html>

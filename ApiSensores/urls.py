@@ -16,6 +16,8 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+from Equipo.views import equipo_views
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Sensores API",
@@ -31,19 +33,19 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('', lambda request: redirect('admin/', permanent=False)),  # Redirige la raíz al admin
+    # path(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api-token-auth/', CustomAuthTokenAPI.as_view()),
+    path('api/v1/', include('Plantas.api.urls')),
+    path('api/v1/', include('Producto.api.urls')),
+    path('api/v1/', include('Equipo.api.urls')),
+    path('api/v1/', include('Proceso.api.urls')),
+    path('registro/', views.registro_usuario, name='registro'),
 
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
-                  path('', lambda request: redirect('admin/', permanent=False)),  # Redirige la raíz al admin
-                  # path(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
-                  path('admin/', admin.site.urls),
-                  path('api-auth/', include('rest_framework.urls')),
-                  path('api-token-auth/', CustomAuthTokenAPI.as_view()),
-                  path('api/v1/', include('Plantas.api.urls')),
-                  path('api/v1/', include('Producto.api.urls')),
-                  path('api/v1/', include('Equipo.api.urls')),
-                  path('api/v1/', include('Proceso.api.urls')),
-                  path('registro/', views.registro_usuario, name='registro'),
-
-                  path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # Vistas
+    path('prueba/', include('Equipo.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
