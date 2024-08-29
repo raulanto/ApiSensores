@@ -1,3 +1,5 @@
+# clase lectura etapa
+
 from .TimeStampedModel import TimeStampedModel
 from django.db import models
 from simple_history.models import HistoricalRecords

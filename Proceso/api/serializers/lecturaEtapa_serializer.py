@@ -1,3 +1,5 @@
+# lectura etapa serializer
+
 from rest_framework import serializers
 from Proceso.models import LecturaEtapa
 

@@ -10,4 +10,3 @@ from Equipo.filter.SeccionequipoSensorFilter import SeccionEquipoSensorFilter
 class LecturaEtapaAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ['id', 'valor', 'fkEtapa', 'fkESeccionEquipoSensor','created_at','createdTime_at']
     actions = [descargar_valores]
-    list_filter = [SeccionEquipoSensorFilter]

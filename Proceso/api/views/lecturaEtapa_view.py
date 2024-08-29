@@ -1,3 +1,5 @@
+# lectura etapa view
+
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import (
