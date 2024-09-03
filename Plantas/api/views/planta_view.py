@@ -14,6 +14,7 @@ from Plantas.models import *
 from ApiSensores.registroCambios import registrarCambio
 # filtros
 from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 class PlantaViewSet(
     ListModelMixin,
@@ -27,7 +28,8 @@ class PlantaViewSet(
     serializer_class = PlantaSerializer
     permission_classes = [IsAuthenticated]
     filterset_fields = ['usuario']
-    filter_backends = [filters.SearchFilter]
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+    search_fields = ['usuario']
 
     def update(self, request, *args, **kwargs):
         self.serializer_class = PlantaUpdateSerializer

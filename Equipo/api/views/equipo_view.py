@@ -15,6 +15,7 @@ from Equipo.models import Equipo
 from ApiSensores.registroCambios import registrarCambio
 # filtros
 from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 class EquipoViewSet(
     ListModelMixin,
@@ -27,8 +28,8 @@ class EquipoViewSet(
 
     serializer_class = EquipoSerializer
     permission_classes = [IsAuthenticated]
-    filter_backends = [filters.SearchFilter]
-    filterset_fields = ['nombre']
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+    filterset_fields = ['nombre','usuario']
     search_fields = ['nombre']
 
 

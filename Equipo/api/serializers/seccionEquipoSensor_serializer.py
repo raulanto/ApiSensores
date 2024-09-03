@@ -7,7 +7,7 @@ class SeccionEquipoSensorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SeccionEquipoSensor
-        fields = ['id',  'fkseccionEquipo_nombre', 'fksensor_nombre']
+        fields = ['id',  'fkseccionEquipo_nombre', 'fksensor_nombre','fkseccionEquipo','fksensor']
 
 class SeccionEquipoSensorCreateSerializer(serializers.ModelSerializer):
 

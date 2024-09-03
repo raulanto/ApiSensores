@@ -1,3 +1,5 @@
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import (
@@ -25,6 +27,8 @@ class ProductoViewSet(
 
     serializer_class = ProductoSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+    filterset_fields = ['usuario']
 
     def update(self, request, *args, **kwargs):
         self.serializer_class = ProductoUpdateSerializer

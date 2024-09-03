@@ -7,13 +7,13 @@ class EquipoSerializer(serializers.ModelSerializer):
     # fkplanta_organizacion= serializers.ReadOnlyField(source='fkplanta.organizacion')
     class Meta:
         model = Equipo
-        fields = ['id', 'nombre', 'descripcion',  'fkplanta_nombre', 'fkproducto_nombre']
+        fields = ['id', 'nombre', 'descripcion',  'fkplanta_nombre', 'fkproducto_nombre','usuario']
 
 
 class EquipoCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipo
-        fields = ['id', 'nombre', 'descripcion','fkplanta','fkproducto']
+        fields = ['id', 'nombre', 'descripcion','fkplanta','fkproducto','usuario']
 
 class EquipoUpdateSerializer(serializers.ModelSerializer):
     class Meta:

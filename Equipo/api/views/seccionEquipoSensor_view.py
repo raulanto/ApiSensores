@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import (
@@ -11,6 +12,7 @@ from Equipo.models import SeccionEquipoSensor
 from ..serializers.seccionEquipoSensor_serializer import SeccionEquipoSensorSerializer, \
     SeccionEquipoSensorCreateSerializer, SeccionEquipoSensorUpdateSerializer
 
+from rest_framework import filters
 # Cabios de registros impor
 from ApiSensores.registroCambios import registrarCambio
 class SeccionEquipoSemsorViewSet(
@@ -21,7 +23,8 @@ class SeccionEquipoSemsorViewSet(
     GenericViewSet
 ):
     queryset = SeccionEquipoSensor.objects.all()
-
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+    filterset_fields = ['fkseccionEquipo']
     serializer_class = SeccionEquipoSensorSerializer
     permission_classes = [IsAuthenticated]
 

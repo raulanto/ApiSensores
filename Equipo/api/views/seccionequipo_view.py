@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import (
@@ -12,7 +13,7 @@ from ..serializers.seccionEquipo_serializer import SeccionEquipoSerializer,Secci
 
 from ApiSensores.registroCambios import registrarCambio
 
-
+from rest_framework import filters
 
 class SeccionEquipoViewSet(
     ListModelMixin,
@@ -22,7 +23,8 @@ class SeccionEquipoViewSet(
     GenericViewSet
 ):
     queryset = SeccionEquipo.objects.all()
-
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+    filterset_fields = ['fkequipo']
     serializer_class = SeccionEquipoSerializer
     permission_classes = [IsAuthenticated]
 
