@@ -11,6 +11,8 @@ from ..serializers.proceso_serializer import ProcesoUpdateSerializer,ProcesoCrea
 from Proceso.models import Proceso
 # Cabios de registros impor
 from ApiSensores.registroCambios import registrarCambio
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 class ProcesoViewSet(
     ListModelMixin,
@@ -20,7 +22,8 @@ class ProcesoViewSet(
     GenericViewSet
 ):
     queryset = Proceso.objects.all()
-
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+    filterset_fields = ['nombre','usuario']
     serializer_class = ProcesoSerializer
     permission_classes = [IsAuthenticated]
 

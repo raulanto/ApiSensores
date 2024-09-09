@@ -4,15 +4,24 @@ from ..filter.ProcesoFilter import ProcesoFilter
 
 @admin.register(Etapa)
 class EtapaAdmin(admin.ModelAdmin):
-    list_display = ['id', 'nombre', 'fkProceso', 'duracion_en_horas', 'activo']
+    list_display = ['id', 'nombre', 'fkProceso', 'mostrar_duracion', 'activo']
     list_filter = [ProcesoFilter]
-    actions = ['frenar_etapas','continuar_etapas']
-    # VistaRegistro
+    actions = ['frenar_etapas', 'continuar_etapas']
     fieldsets = (
-        ('Inicar Etapa', {
-            'fields': ('nombre', 'fkProceso', 'duracion_en_horas', 'activo')
+        ('Iniciar Etapa', {
+            'fields': ('nombre', 'fkProceso', 'duracion', 'activo')
         }),
     )
+
+    def mostrar_duracion(self, obj):
+        if obj.duracion:
+            total_seconds = obj.duracion.total_seconds()
+            hours = int(total_seconds // 3600)
+            minutes = int((total_seconds % 3600) // 60)
+            return f"{hours} horas, {minutes} minutos"
+        return "No especificado"
+
+    mostrar_duracion.short_description = "Duración en horas"
 
     # Devolver solo los queryset del usuario
     def get_queryset(self, request):

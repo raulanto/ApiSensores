@@ -12,6 +12,8 @@ from Proceso.models import Etapa
 from ..serializers.etapa_serializer import EtapaCreateSerializer, EtapaUpdateSerializer, EtapaSerializer
 # Cabios de registros impor
 from ApiSensores.registroCambios import registrarCambio
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 class EtapaViewSet(
     ListModelMixin,
@@ -21,7 +23,8 @@ class EtapaViewSet(
     GenericViewSet
 ):
     queryset = Etapa.objects.all()
-
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+    filterset_fields = ['nombre','fkProceso']
     serializer_class = EtapaSerializer
     permission_classes = [IsAuthenticated]
 
