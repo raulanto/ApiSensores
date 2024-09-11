@@ -5,7 +5,6 @@ class ProcesoSerializer(serializers.ModelSerializer):
         model=Proceso
         fields = ['id','nombre','descripcion','usuario','fkequipo']
 
-      # Te odia maldita perralll
 
 
 class ProcesoCreateSerializer(serializers.ModelSerializer):
@@ -18,3 +17,10 @@ class ProcesoUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model=Proceso
         fields = ['nombre','descripcion']
+
+
+class ProcesoFkequipo(serializers.ModelSerializer):
+    class Meta:
+        model=Proceso
+        fields = ['fkequipo']
+

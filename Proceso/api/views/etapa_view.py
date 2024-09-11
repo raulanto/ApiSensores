@@ -24,7 +24,7 @@ class EtapaViewSet(
 ):
     queryset = Etapa.objects.all()
     filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-    filterset_fields = ['nombre','fkProceso']
+    filterset_fields = ['id','fkProceso']
     serializer_class = EtapaSerializer
     permission_classes = [IsAuthenticated]
 
