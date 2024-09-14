@@ -2,6 +2,9 @@ from .TimeStampedModel import TimeStampedModel
 from django.db import models
 from .Inconveniente import Inconveniente
 from .Proceso import Proceso
+from django.utils import timezone
+
+# 1 activo 2 desactivado 3 Terminado
 
 
 class Etapa(TimeStampedModel):
@@ -11,8 +14,8 @@ class Etapa(TimeStampedModel):
     # duracion_en_horas = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True,
     #                                         verbose_name="Duración en horas")
     duracion = models.DurationField(blank=True, null=True, verbose_name="Duración")
-    activo = models.BooleanField(default=True)
-    
+    activo = models.IntegerField(default=2)
+    # fecha_inicio = models.DateTimeField(blank=True, null=True, verbose_name="Fecha de inicio")
 
     def __str__(self):
         return self.nombre
@@ -26,3 +29,8 @@ class Etapa(TimeStampedModel):
         self.activo = True
         self.save()
         Inconveniente.objects.create(etapa=self, descripcion=descripcion, creado_por=usuario)
+
+    # def save(self, *args, **kwargs):
+    #     if self.activo and not self.fecha_inicio:
+    #         self.fecha_inicio = timezone.now()
+    #     super(Etapa, self).save(*args, **kwargs)

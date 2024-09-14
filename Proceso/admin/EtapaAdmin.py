@@ -4,7 +4,7 @@ from ..filter.ProcesoFilter import ProcesoFilter
 
 @admin.register(Etapa)
 class EtapaAdmin(admin.ModelAdmin):
-    list_display = ['id', 'nombre', 'fkProceso', 'mostrar_duracion', 'activo']
+    list_display = ['id', 'nombre', 'fkProceso', 'mostrar_duracion', 'activo','created_at','createdTime_at']
     list_filter = [ProcesoFilter]
     actions = ['frenar_etapas', 'continuar_etapas']
     fieldsets = (

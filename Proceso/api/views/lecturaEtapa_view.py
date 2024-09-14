@@ -29,8 +29,8 @@ class LecturaEtapaViewSet(
     serializer_class =LecturaEtapaSerializer
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-    filterset_fields = ['fkESeccionEquipoSensor','valor']
-    search_fields = ['valor']
+    filterset_fields = ['fkESeccionEquipoSensor','valor','fkEtapa']
+    search_fields = ['valor','fkEtapa']
 
 class LecturaEtapaCreateViewSet(CreateAPIView):
     queryset = LecturaEtapa.objects.all()
