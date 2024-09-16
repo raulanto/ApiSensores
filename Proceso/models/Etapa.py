@@ -6,17 +6,21 @@ from django.utils import timezone
 
 # 1 activo 2 desactivado 3 Terminado
 
+NOTIFICATION_TYPES = (
+    (1, 'Activo'),
+    (2, 'Desactivado'),
+    (3, 'Terminado'),
+    (4, 'Error'),
+)
+
 
 class Etapa(TimeStampedModel):
     nombre = models.CharField(max_length=50, default='Etapa',verbose_name='Etapa')
-    # fkestadoEtapa = models.ForeignKey(EstadoEtapa, on_delete=models.CASCADE, blank=True, null=True)
     fkProceso = models.ForeignKey(Proceso, on_delete=models.CASCADE, blank=False, null=False,verbose_name='Proceso')
-    # duracion_en_horas = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True,
-    #                                         verbose_name="Duración en horas")
-    duracion = models.DurationField(blank=True, null=True, verbose_name="Duración")
-    activo = models.IntegerField(default=2)
-    # fecha_inicio = models.DateTimeField(blank=True, null=True, verbose_name="Fecha de inicio")
 
+    duracion = models.DurationField(blank=True, null=True, verbose_name="Duración")
+    activo = models.IntegerField(max_length=15, choices=NOTIFICATION_TYPES, default=2)
+    proceso=models.IntegerField(default=0)
     def __str__(self):
         return self.nombre
 

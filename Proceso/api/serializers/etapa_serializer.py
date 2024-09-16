@@ -6,7 +6,7 @@ class EtapaSerializer(serializers.ModelSerializer):
     fkProceso = ProcesoFkequipo()
     class Meta:
         model = Etapa
-        fields= ['id','nombre','activo','fkProceso','duracion','created_at','createdTime_at','updated_at']
+        fields= ['id','nombre','activo','fkProceso','duracion','created_at','createdTime_at','updated_at','proceso']
 
 class EtapaCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,4 +16,4 @@ class EtapaCreateSerializer(serializers.ModelSerializer):
 class EtapaUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Etapa
-        fields= ['activo']
+        fields= ['activo','proceso']

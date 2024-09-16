@@ -7,46 +7,47 @@ from rest_framework.mixins import (
     DestroyModelMixin
 )
 from rest_framework.generics import CreateAPIView
-from ..serializers.proceso_serializer import ProcesoUpdateSerializer,ProcesoCreateSerializer,ProcesoSerializer
-from Proceso.models import Proceso
 # Cabios de registros impor
 from ApiSensores.registroCambios import registrarCambio
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
+# Modelo y seri
+from Proceso.models import Notificacion
+from ..serializers import NotificacionSerializers,NotificacionCreateSerializers,NotificacionUpdateSerializers
 
-class ProcesoViewSet(
+
+class NotificacionViewSet(
     ListModelMixin,
     RetrieveModelMixin,
     DestroyModelMixin,
     UpdateModelMixin,
     GenericViewSet
 ):
-    queryset = Proceso.objects.all()
+    queryset = Notificacion.objects.all()
     filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-    filterset_fields = ['nombre','usuario','id']
-    serializer_class = ProcesoSerializer
+    filterset_fields = ['id','user','is_read']
+    serializer_class = NotificacionSerializers
     permission_classes = [IsAuthenticated]
 
     def update(self, request, *args, **kwargs):
-        self.serializer_class = ProcesoUpdateSerializer
+        self.serializer_class = NotificacionUpdateSerializers
         response = super().update(request, *args, **kwargs)
-
 
         # Registra el cambio
         objeto = self.get_object()
-        mensaje = "Proceso actualizado"
+        mensaje = "Notificacion  actualizado"
         registrarCambio(request, objeto, mensaje)
 
         return response
 
-class ProcesoCreateViewSet(CreateAPIView):
-    queryset = Proceso.objects.all()
-    serializer_class = ProcesoCreateSerializer
+class NotificacionCreateViewSet(CreateAPIView):
+    queryset = Notificacion.objects.all()
+    serializer_class = NotificacionCreateSerializers
     permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
         instance = serializer.save()
 
         # Registra el cambio
-        mensaje = "Proceso creado"
+        mensaje = "Notificacion creado"
         registrarCambio(self.request, instance, mensaje)

@@ -2,7 +2,7 @@
 
 from rest_framework import serializers
 from Proceso.models import LecturaEtapa
-
+from Equipo.api.serializers import SeccionEquipoSensorSerializer
 
 
 MONTH_NAMES = [
@@ -13,7 +13,7 @@ MONTH_NAMES = [
 class LecturaEtapaSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
     createdTime_at = serializers.TimeField(format='%H:%M:%S')
-
+    fkESeccionEquipoSensor=SeccionEquipoSensorSerializer()
     class Meta:
         model = LecturaEtapa
         fields = ['id', 'valor', 'fkEtapa', 'fkESeccionEquipoSensor', 'created_at', 'createdTime_at']
