@@ -4,7 +4,7 @@ from Proceso.models import Notificacion
 class NotificacionSerializers(serializers.ModelSerializer):
     class Meta:
         model= Notificacion
-        fields=['id','user','message','notification_type','created_at','is_read']
+        fields=['id','user','message','notification_type','created_at','is_read','tittle']
 
 
 class NotificacionCreateSerializers(serializers.ModelSerializer):
