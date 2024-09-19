@@ -19,7 +19,7 @@ class Etapa(TimeStampedModel):
     fkProceso = models.ForeignKey(Proceso, on_delete=models.CASCADE, blank=False, null=False,verbose_name='Proceso')
 
     duracion = models.DurationField(blank=True, null=True, verbose_name="Duración")
-    activo = models.IntegerField(max_length=15, choices=NOTIFICATION_TYPES, default=2)
+    activo = models.IntegerField( choices=NOTIFICATION_TYPES, default=2)
     proceso=models.IntegerField(default=0)
     def __str__(self):
         return self.nombre
@@ -33,8 +33,3 @@ class Etapa(TimeStampedModel):
         self.activo = True
         self.save()
         Inconveniente.objects.create(etapa=self, descripcion=descripcion, creado_por=usuario)
-
-    # def save(self, *args, **kwargs):
-    #     if self.activo and not self.fecha_inicio:
-    #         self.fecha_inicio = timezone.now()
-    #     super(Etapa, self).save(*args, **kwargs)

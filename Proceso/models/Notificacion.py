@@ -13,7 +13,7 @@ class Notificacion(TimeStampedModel):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notifications")
     tittle =models.CharField(max_length=50,default='Esto es un titulo')
-    message = models.TextField()
+    message = models.TextField() 
     notification_type = models.CharField(max_length=10, choices=NOTIFICATION_TYPES, default='info')
     is_read = models.BooleanField(default=False)
 
