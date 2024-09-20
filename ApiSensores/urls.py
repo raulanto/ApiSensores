@@ -38,7 +38,7 @@ urlpatterns = [
                   path('api/v1/', include('Plantas.api.urls')),
                   path('api/v1/', include('Producto.api.urls')),
                   path('api/v1/', include('Equipo.api.urls')),
-                  path('api/v1/', include('apiS.Proceso.api.urls')),
+                  path('api/v1/', include('Proceso.api.urls')),
                   path('registro/', views.registro_usuario, name='registro'),
                   path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
                   path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
