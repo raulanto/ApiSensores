@@ -56,7 +56,7 @@ LOCAL_APPS = [
     'Plantas.apps.PlantasConfig',
     'Producto.apps.ProductoConfig',
     'Equipo.apps.EquipoConfig',
-    'Proceso.apps.ProcesoConfig',
+    'apiS.Proceso.apps.ProcesoConfig',
     'Organizacion.apps.OrganizacionConfig'
 ]
 
