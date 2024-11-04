@@ -9,7 +9,7 @@ class ValoresProductoSerializer(serializers.ModelSerializer):
 class ValoresProductoCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ValoresProducto
-        fields = [ 'nombre', 'valorMaximo', 'valorMinimo', 'producto']
+        fields = [ 'nombre', 'valorMaximo', 'valorMinimo']
 
 class ValoresProductoUpdateSerializer(serializers.ModelSerializer):
     class Meta:

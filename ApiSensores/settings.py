@@ -24,7 +24,6 @@ SECRET_KEY = 'django-insecure-t9j*^2jv_^om$ru!+wz+zq^851cn!xqvk01itibc#*=fe-dufp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -96,7 +95,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ApiSensores.wsgi.application'
+# WSGI_APPLICATION = 'ApiSensores.wsgi.application'
+ASGI_APPLICATION = 'ApiSensores.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -143,7 +143,7 @@ TIME_ZONE = 'America/Mexico_City'
 USE_I18N = True
 
 USE_TZ = True
-
+TIME_FORMAT = 'H:i'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -333,3 +333,4 @@ JAZZMIN_SETTINGS = {
     # Add a language dropdown into the admin
     "language_chooser": False,
 }
+ALLOWED_HOSTS = ['*']

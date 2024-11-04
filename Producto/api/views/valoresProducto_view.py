@@ -1,3 +1,5 @@
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import (
@@ -24,7 +26,8 @@ class ValoresProductoViewSet(
     GenericViewSet
 ):
     queryset = ValoresProducto.objects.all()
-
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
+    filterset_fields = ['producto']
     serializer_class = ValoresProductoSerializer
     permission_classes = [IsAuthenticated]
 

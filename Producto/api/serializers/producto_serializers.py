@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
 from Producto.models import Producto
-from ..serializers.valoresProducto_serializer import ValoresProductoSerializer
-
+from ..serializers.valoresProducto_serializer import ValoresProductoCreateSerializer
+from Producto.models import ValoresProducto
 class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
@@ -10,10 +10,10 @@ class ProductoSerializer(serializers.ModelSerializer):
 
 
 class ProductoCreateSerializer(serializers.ModelSerializer):
-    valores = ValoresProductoSerializer(many=True, write_only=True)
+    valores = ValoresProductoCreateSerializer(many=True, write_only=True)
     class Meta:
         model = Producto
-        fields = ['nombre', 'descripcion', 'usuario','valores']
+        fields = ['nombre', 'descripcion', 'usuario','fotografia','valores']
 
 
     def create(self, validated_data):
