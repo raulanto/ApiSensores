@@ -5,6 +5,8 @@ from Equipo.models import TimeStampedModel
 from Plantas.models import Planta
 from Producto.models import Producto
 
+
+
 class Equipo(TimeStampedModel):
     nombre = models.CharField(max_length=50)
     descripcion = models.TextField(blank=True, null=True)
