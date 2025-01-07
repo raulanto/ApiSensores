@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 import csv
 
-
 def exportequipo_csv(self, request, queryset):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="equipos.csv"'
